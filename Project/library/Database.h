@@ -30,8 +30,9 @@ struct User{
 struct Course{
   std::string user_number;
   std::string course_code;
-  int Exam_mark;
-  std::string Grade;
+  std::string course_title;
+  int Exam_mark = 0;
+  std::string grade = "NA";
 };
 
 class Database{
@@ -52,7 +53,7 @@ public:
   void create(Course& course){
     //lines to save the course
     file.open("files/courses.txt",std::ios::app|std::ios::out);
-    file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
+    file << course.user_number << " " << course.course_code << " " << course.course_title  << " " << course.Exam_mark << " " << course.grade << std::endl;
     file.close();
     std::cout << "Course created successfully .." << std::endl;
   }
@@ -72,8 +73,8 @@ public:
   void fetch(std::string user_id,std::string course_code,Course& course){
     file.open("files/courses.txt",std::ios::in);
     while(!file.eof()){
-      file >> course.user_number >> course.course_code >> course.Exam_mark >> course.grade;
-      if(course.user_number == user_id && course.course == course_code){
+      file >> course.user_number >> course.course_code >> course.course_title >> course.Exam_mark >> course.grade;
+      if(course.user_number == user_id && course.course_code == course_code){
         break;
       }
     }
@@ -157,8 +158,8 @@ public:
       temp_file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
     }
     remove("files/courses.txt");
-    rename("files/temp.txt","courses.txt");
-    cout << "Student has been graded successfully .." << endl;
+    rename("files/temp.txt","files/courses.txt");
+    std::cout << "Student has been graded successfully .." << std::endl;
   }
 
 };

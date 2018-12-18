@@ -11,6 +11,7 @@ int main(int argc, char const *argv[]) {
 int choice,admin_opt,staff_opt,stud_opt;
 string admin_no,admin_pin,staff_no,staff_pin,stud_no,stud_pin;
 User one;
+Course course;
 bool check;
 Database dbase;
 
@@ -151,7 +152,13 @@ Database dbase;
           cin >> stud_opt;
         switch(stud_opt){
           case 1:
-            
+            cout << "Enter course code : ";
+            cin >> course.course_code;
+            cout << "Enter course title : ";
+            cin >> course.course_title;
+            course.user_number = stud_no;
+            //saving course to file
+            dbase.create(course);
             system("cls");
             goto studPage;
           break;
