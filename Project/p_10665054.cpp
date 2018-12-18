@@ -96,10 +96,23 @@ Database dbase;
 
         switch(staff_opt){
           case 1:
-            cout << "Student graded!\n";
+            system("cls");
+            cout << "Enter the ID number of the student to be graded : ";
+            cin >> stud_no;
+            cout << "Enter the course code : ";
+            cin >> stud_pin;
+            cout << "Enter the raw score : ";
+            cin >> stud_opt;
+
+            //function to  grade  student
+
           break;
           case 2:
-            cout << "Assignment given!\n";
+            cout << "Enter course title : ";
+            cin >> admin_no;
+
+            //function to give assignment
+            
           break;
           case 3:
             system("cls");
