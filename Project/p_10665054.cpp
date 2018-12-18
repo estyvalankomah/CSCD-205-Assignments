@@ -33,7 +33,7 @@ Database dbase;
         system("cls");
         cout << "--------------------ADMIN----------------------\n\n";
         adminPage:
-          cout <<"1.Add user\n2.Edit user\n3.Delete user\n4.Upload courses\n5.Edit course\n6.Log out\n";
+          cout <<"1.Add user\n2.Edit user\n3.Delete user\n4.Log out\n";
           cin >> admin_opt;
         switch(admin_opt){
             case 1:
@@ -50,18 +50,21 @@ Database dbase;
               dbase.create(one);
             break;
             case 2:
-              dbase.update(one);
+              cout << "Enter user number of person to edit: ";
+              cin >> stud_no;
+              dbase.fetch(stud_no,one);
+              if(dbase.update(one)){
+                cout << "User edited successfully .. " << endl;
+              }
             break;
             case 3:
-              dbase.delete_user(one.user_number);
+              cout << "Enter user number of person to delete: ";
+              cin >> stud_no;
+              if(dbase.delete_user(stud_no)){
+                cout << "User deleted successfully" << endl;
+              }
             break;
             case 4:
-              cout << "Course uploaded!\n";
-            break;
-            case 5:
-              cout << "Course edited!\n";
-            break;
-            case 6:
               system("cls");
               goto start;
             break;
@@ -83,7 +86,6 @@ Database dbase;
         cout << "Enter your pin : ";
         cin >> staff_pin;
         check = dbase.login(staff_no,staff_pin);
-
       if(check){
         system("cls");
 

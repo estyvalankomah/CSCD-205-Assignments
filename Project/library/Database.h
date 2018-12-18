@@ -36,7 +36,7 @@ public:
   //create methods (works as planned)
   void create(User& user){
     //lines to write to file
-    file.open("users.txt",std::ios::app|std::ios::out);
+    file.open("files/users.txt",std::ios::app|std::ios::out);
     file << user.user_number << " " << user.user_pin << " " << user.fname << " " << user.lname << " " << user.user_type << std::endl;
     file.close();
     std::cout << "User created successfully " << std::endl;
@@ -45,7 +45,7 @@ public:
   //fetch(read) methods (works as planned)
   void fetch(std::string user_id,User& user){
     //lines to fetch the user from the file
-    file.open("users.txt",std::ios::in);
+    file.open("files/users.txt",std::ios::in);
     while(!file.eof()){
       file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
       if(user.user_number == user_id){
@@ -57,8 +57,8 @@ public:
   //update(edit) methods (not working at the moment) why are you cursing lol am I ? you said wtf that's cursing lol
   bool update(User update_user){
     //lines to update the user in the file
-    file.open("users.txt");
-    temp_file.open("temp.txt",std::ios::app|std::ios::out);
+    file.open("files/users.txt");
+    temp_file.open("files/temp.txt",std::ios::app|std::ios::out);
     while(!file.eof()){
       file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
       // std::cout << "Fetched : " << user.user_number << " With id : " << user.user_number << std::endl;
@@ -73,8 +73,8 @@ public:
     }
     file.close();
     temp_file.close();
-    remove("users.txt");
-    int check = rename("temp.txt","users.txt");
+    remove("files/users.txt");
+    int check = rename("files/temp.txt","users.txt");
     std::cout << check << std::endl;
     if(check){
       return true;
@@ -85,8 +85,8 @@ public:
   //delete(remove user) methods
   bool delete_user(std::string user_id){
     //lines to delete the user
-    file.open("users.txt");
-    temp_file.open("temp.txt",std::ios::app|std::ios::out);
+    file.open("files/users.txt");
+    temp_file.open("files/temp.txt",std::ios::app|std::ios::out);
     while(!file.eof()){
       file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
       // std::cout << "Fetched : " << user.user_number << " With id : " << user.user_number << std::endl;
@@ -99,8 +99,8 @@ public:
     }
     file.close();
     temp_file.close();
-    remove("users.txt");
-    int check = rename("temp.txt","users.txt");
+    remove("files/users.txt");
+    int check = rename("files/temp.txt","files/users.txt");
     std::cout << check << std::endl;
     if(check){
       return true;
