@@ -26,23 +26,54 @@ struct User{
 };
 
 class Database{
-
+  fstream file;
+  fstream temp_file;
 public:
 
   //create methods
   void create(User& user){
     //lines to write to file
+    file.open("users.txt",std::ios::app|std::ios::out);
+    file << user.user_number << " " << user.user_pin << " " << user.fname << " " << user.lname << " " << user.user_type << endl;
+    file.close();
+    std::cout << "User created successfully " << std::endl;
   }
 
   //fetch(read) methods
-  User& fetch(string user_id){
+  void fetch(std::string user_id,User& user){
     //lines to fetch the user from the file
-    return user;
+    file.open("users.txt",std::ios::in);
+    while(!file.eof()){
+      file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
+      if(user.user_number == user_id){
+        break;
+      }
+    }
   }
 
   //update(edit) methods
-  bool update(User& user){
+  bool update(User update_user){
+    User user;
     //lines to update the user in the file
+    file.open("users.txt",std::ios::in|std::ios::out);
+    temp_file.open("temp.txt",std::ios::in|std::ios::out);
+    while(!file.eof()){
+      file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
+      if(user.user_number == update_user.user_number){
+        user.user_number = upadte_user.user_number;
+        user.user_pin = upadte_user.user_pin;
+        user.fname = upadte_user.fname;
+        user.lname = upadte_user.lname;
+        user.user_type = upadte_user.user_type;
+      }
+      temp_file << user.user_number << " " << user.user_pin << " " << user.fname << " " << user.lname << " " << user.user_type << endl;
+    }
+    file.close();
+    temp_file.close();
+    remove("users.txt");
+    if(rename("temp.txt","users.txt")){
+      return true;
+    }
     return false;
   }
 
