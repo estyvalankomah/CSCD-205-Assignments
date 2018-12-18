@@ -27,6 +27,13 @@ struct User{
   std::string user_type;
 };
 
+struct Course{
+  std::string user_number;
+  std::string course_code;
+  int Exam_mark;
+  std::string Grade;
+};
+
 class Database{
   std::fstream file;
   std::fstream temp_file;
@@ -42,6 +49,14 @@ public:
     std::cout << "User created successfully " << std::endl;
   }
 
+  void create(Course& course){
+    //lines to save the course
+    file.open("files/courses.txt",std::ios::app|std::ios::out);
+    file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
+    file.close();
+    std::cout << "Course created successfully .." << std::endl;
+  }
+
   //fetch(read) methods (works as planned)
   void fetch(std::string user_id,User& user){
     //lines to fetch the user from the file
@@ -49,6 +64,16 @@ public:
     while(!file.eof()){
       file >> user.user_number >> user.user_pin >> user.fname >> user.lname >> user.user_type;
       if(user.user_number == user_id){
+        break;
+      }
+    }
+  }
+
+  void fetch(std::string user_id,std::string course_code,Course& course){
+    file.open("files/courses.txt",std::ios::in);
+    while(!file.eof()){
+      file >> course.user_number >> course.course_code >> course.Exam_mark >> course.grade;
+      if(course.user_number == user_id && course.course == course_code){
         break;
       }
     }
@@ -117,6 +142,23 @@ public:
       return true;
     }
     return false;
+  }
+
+  void grade_student(int score, std::string course_code, std::string user_id){
+    Course course;
+    this->fetch(user_id,course_code,course);
+    file.open("files/courses.txt");
+    temp_file.open("files/temp.txt",std::ios::app|std::ios::out);
+    while(!file.eof()){
+      file >> course.user_number >> course.course_code >> course.Exam_mark >> course.grade;
+      if(course.user_number == user_id && course.course_code == course_code){
+        course.Exam_mark = score;
+      }
+      temp_file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
+    }
+    remove("files/courses.txt");
+    rename("files/temp.txt","courses.txt");
+    cout << "Student has been graded successfully .." << endl;
   }
 
 };
