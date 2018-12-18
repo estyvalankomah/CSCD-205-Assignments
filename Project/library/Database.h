@@ -158,7 +158,7 @@ public:
       temp_file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
     }
     remove("files/courses.txt");
-    rename("files/temp.txt","files/courses.txt");
+    rename("files/temp.txt","courses.txt");
     std::cout << "Student has been graded successfully .." << std::endl;
   }
 
