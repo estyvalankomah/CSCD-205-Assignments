@@ -29,10 +29,9 @@ Database dbase;
         check = dbase.login(admin_no,admin_pin);
 
       if(check){
-        //here is where the rest of the code goes
         system("cls");
-        cout << "--------------------ADMIN----------------------\n\n";
         adminPage:
+          cout << "--------------------ADMIN----------------------\n\n";
           cout <<"1.Add user\n2.Edit user\n3.Delete user\n4.Log out\n";
           cin >> admin_opt;
         switch(admin_opt){
@@ -48,6 +47,8 @@ Database dbase;
                 cout << "Enter user type (admin/staff/student) : ";
                 cin >> one.user_type;
               dbase.create(one);
+              system("cls");
+              goto adminPage;
             break;
             case 2:
               cout << "Enter user number of person to edit: ";
@@ -56,6 +57,8 @@ Database dbase;
               if(dbase.update(one)){
                 cout << "User edited successfully .. " << endl;
               }
+              system("cls");
+              goto adminPage;
             break;
             case 3:
               cout << "Enter user number of person to delete: ";
@@ -63,6 +66,8 @@ Database dbase;
               if(dbase.delete_user(stud_no)){
                 cout << "User deleted successfully" << endl;
               }
+              system("cls");
+              goto adminPage;
             break;
             case 4:
               system("cls");
@@ -88,9 +93,8 @@ Database dbase;
         check = dbase.login(staff_no,staff_pin);
       if(check){
         system("cls");
-
-        cout << "------------------------STAFF---------------------\n\n";
         staffPage:
+          cout << "------------------------STAFF---------------------\n\n";
           cout << "1.Grade student\n2.Give assignment\n3.Log out\n";
           cin >> staff_opt;
 
@@ -105,6 +109,8 @@ Database dbase;
             cin >> stud_opt;
 
             //function to  grade  student
+            system("cls");
+            goto staffPage;
 
           break;
           case 2:
@@ -112,7 +118,9 @@ Database dbase;
             cin >> admin_no;
 
             //function to give assignment
-            
+            system("cls");
+            goto staffPage;
+
           break;
           case 3:
             system("cls");
@@ -137,26 +145,35 @@ Database dbase;
 
       if(check){
         system("cls");
-
-        cout << "------------------------STUDENT---------------------\n\n";
         studPage:
+          cout << "------------------------STUDENT---------------------\n\n";
           cout << "1.Add courses\n2.View courses\n3.Edit courses\n4.Delete courses\n5.Academic Record\n6.Log out\n";
           cin >> stud_opt;
         switch(stud_opt){
           case 1:
-            cout << "Course added!\n";
+            
+            system("cls");
+            goto studPage;
           break;
           case 2:
             cout << "Courses viewed!\n";
+            system("cls");
+            goto studPage;
           break;
           case 3:
             cout << "Courses edited!\n";
+            system("cls");
+            goto studPage;
           break;
           case 4:
             cout << "Courses deleted!\n";
+            system("cls");
+            goto studPage;
           break;
           case 5:
             cout << "Academic record\n";
+            system("cls");
+            goto studPage;
           break;
           case 6:
             system("cls");
