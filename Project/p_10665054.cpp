@@ -1,24 +1,18 @@
 #include <iostream>
 #include "library/Database.h"
-#nclude <windows.h>
+#include <windows.h>
 #include <string>
 using namespace std;
 
+
+
 int main(int argc, char const *argv[]) {
-  int choice,admin_opt,staff_opt,stud_opt;
-  string admin_no,admin_pin,staff_no,staff_pin,stud_no,stud_pin;
-  User one;
-  Database dbase;
-  cout << "Enter your ID number : ";
-  cin >> one.user_number;
-  cout << "Enter your pin : ";
-  cin >> one.user_pin;
-  cout << "Enter your first name : ";
-  cin >> one.fname;
-  cout << "Enter your last name : ";
-  cin >> one.lname;
-  cout << "Enter user type (admin/staff/student) : ";
-  cin >> one.user_type;
+
+int choice,admin_opt,staff_opt,stud_opt;
+string admin_no,admin_pin,staff_no,staff_pin,stud_no,stud_pin;
+User one;
+bool check;
+Database dbase;
 
   cout << "--------------SCHOOL MANAGEMENT SYSTEM------------\n\n";
   start:
@@ -32,7 +26,7 @@ int main(int argc, char const *argv[]) {
         cin >> admin_no;
         cout << "Enter your pin : ";
         cin >> admin_pin;
-      bool  check = dbase.login(admin_no,admin_pin);
+        check = dbase.login(admin_no,admin_pin);
 
       if(check){
         //here is where the rest of the code goes
@@ -43,16 +37,26 @@ int main(int argc, char const *argv[]) {
           cin >> admin_opt;
         switch(admin_opt){
             case 1:
-              create(one);
+                cout << "Enter user number : ";
+                cin >> one.user_number;
+                cout << "Enter user pin : ";
+                cin >> one.user_pin;
+                cout << "Enter user first name : ";
+                cin >> one.fname;
+                cout << "Enter user last name : ";
+                cin >> one.lname;
+                cout << "Enter user type (admin/staff/student) : ";
+                cin >> one.user_type;
+              dbase.create(one);
             break;
             case 2:
-              update(one);
+              dbase.update(one);
             break;
             case 3:
-              delete_user(one.user_number);
+              dbase.delete_user(one.user_number);
             break;
             case 4:
-              cout << "Course uploade!\n";
+              cout << "Course uploaded!\n";
             break;
             case 5:
               cout << "Course edited!\n";
@@ -64,12 +68,11 @@ int main(int argc, char const *argv[]) {
             default:
               cout << "Invalid input\n";
               goto adminPage;
+      }
       }else{
         cout << "Invalid admin number or pin\n";
         system("cls");
         goto start1;
-      }
-
       }
 
     break;
@@ -79,10 +82,10 @@ int main(int argc, char const *argv[]) {
         cin >> staff_no;
         cout << "Enter your pin : ";
         cin >> staff_pin;
-      bool  check = dbase.login(staff_no,staff_pin);
+        check = dbase.login(staff_no,staff_pin);
 
       if(check){
-        system("cls")
+        system("cls");
 
         cout << "------------------------STAFF---------------------\n\n";
         staffPage:
@@ -103,10 +106,10 @@ int main(int argc, char const *argv[]) {
           default:
             cout << "Invalid input\n";
             goto staffPage;
+        }
         }else{
           cout << "Invalid staff number or pin\n";
           goto start2;
-        }
       }
     break;
     case 3:
@@ -115,14 +118,14 @@ int main(int argc, char const *argv[]) {
         cin >> stud_no;
         cout << "Enter your pin : ";
         cin >> stud_pin;
-      bool  check = dbase.login(stud_no,stud_pin);
+        check = dbase.login(stud_no,stud_pin);
 
       if(check){
         system("cls");
 
-        cout << "------------------------STUDENT---------------------";
+        cout << "------------------------STUDENT---------------------\n\n";
         studPage:
-          cout << "1.Add courses\n2.View courses\n3.Edit courses\n4.Delete courses\n5.Academic Record\n6.Log out";
+          cout << "1.Add courses\n2.View courses\n3.Edit courses\n4.Delete courses\n5.Academic Record\n6.Log out\n";
           cin >> stud_opt;
         switch(stud_opt){
           case 1:
@@ -147,10 +150,10 @@ int main(int argc, char const *argv[]) {
           default:
             cout << "Invalid input\n";
             goto studPage;
+        }
         }else{
           cout << "Invalid student number or pin\n";
           goto start3;
-        }
 
       }
     break;

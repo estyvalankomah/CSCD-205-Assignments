@@ -83,7 +83,7 @@ public:
   }
 
   //delete(remove user) methods
-  void delete_user(std::string user_id){
+  bool delete_user(std::string user_id){
     //lines to delete the user
     file.open("users.txt");
     temp_file.open("temp.txt",std::ios::app|std::ios::out);
@@ -113,7 +113,7 @@ public:
     //line to log user into his/her account
     User user;
     this->fetch(user_id,user);
-    if(user.pin == user_pin){
+    if(user.user_pin == user_pin){
       return true;
     }
     return false;
