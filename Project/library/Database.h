@@ -52,10 +52,12 @@ public:
 
   void create(Course& course){
     //lines to save the course
-    file.open("files/courses.txt",std::ios::app|std::ios::out);
+    file.open("courses.dat",std::ios::app|std::ios::out);
+    std::cout << course.user_number << " " << course.course_code << " " << course.course_title  << " " << course.Exam_mark << " " << course.grade << std::endl;
     file << course.user_number << " " << course.course_code << " " << course.course_title  << " " << course.Exam_mark << " " << course.grade << std::endl;
     file.close();
     std::cout << "Course created successfully .." << std::endl;
+    system("pause");
   }
 
   //fetch(read) methods (works as planned)
