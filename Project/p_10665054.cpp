@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
 
 int choice,admin_opt,staff_opt,stud_opt;
 string admin_no,admin_pin,staff_no,staff_pin,stud_no,stud_pin;
-User one;
+User one,user;
 Course course;
 bool check;
 Database dbase;
@@ -38,16 +38,16 @@ Database dbase;
         switch(admin_opt){
             case 1:
                 cout << "Enter user number : ";
-                cin >> one.user_number;
+                cin >> user.user_number;
                 cout << "Enter user pin : ";
-                cin >> one.user_pin;
+                cin >> user.user_pin;
                 cout << "Enter user first name : ";
-                cin >> one.fname;
+                cin >> user.fname;
                 cout << "Enter user last name : ";
-                cin >> one.lname;
+                cin >> user.lname;
                 cout << "Enter user type (admin/staff/student) : ";
-                cin >> one.user_type;
-              dbase.create(one);
+                cin >> user.user_type;
+              dbase.create(user);
               system("cls");
               goto adminPage;
             break;
@@ -109,7 +109,7 @@ Database dbase;
             cout << "Enter the raw score : ";
             cin >> stud_opt;
 
-            //function to  grade  student
+            dbase.grade_student(stud_opt,stud_pin,stud_no);
             system("cls");
             goto staffPage;
 
