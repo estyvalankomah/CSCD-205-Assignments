@@ -13,7 +13,7 @@ what we are going to have create, read, edit and delete functions
 */
 
 //this is your defined user struct
-struct User{ 
+struct User{
   std::string user_number;
   std::string user_pin;
   std::string fname;
@@ -60,7 +60,7 @@ public:
     file.close();
   }
 
-  //nice implementation here //good work done 
+  //nice implementation here //good work done
   void add(Course& course){
     course.file_name = "files/studentfiles" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
@@ -70,16 +70,16 @@ public:
     std::cout << "Course created successfully .." << std::endl;
   }
 
-  //okay so view courses works fine 
+  //okay so view courses works fine
   int view(std::string user_id){
     std::string filename = "files/studentfiles" + user_id + ".txt";
-    file.open(filename);
+    file.open(filename.c_str(),std::ios::in);
     if(!file.is_open()){
       return 1;
     }
     while(!file.eof()){
       getline(file,filename);
-      //pardon me I am feeling to create a new variable so I am killing it all here
+      //pardon me I am feeling lazy to create a new variable so I am killing it all here
       std::cout << filename << std::endl;
     }
   }
