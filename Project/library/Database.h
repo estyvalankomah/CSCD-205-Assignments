@@ -6,12 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-
-//this is where all defined constants will be
-#define FILE_NAME "file.txt"
-
-
-
 /*
 okay so this is the main database class alright,
 what we are going to have create, read, edit and delete functions
@@ -66,6 +60,7 @@ public:
     file.close();
   }
 
+  //nice implementation here //good work done 
   void add(Course& course){
     course.file_name = "files/studentfiles" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
@@ -73,6 +68,20 @@ public:
     file << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
     file.close();
     std::cout << "Course created successfully .." << std::endl;
+  }
+
+  //okay so view courses works fine 
+  int view(std::string user_id){
+    std::string filename = "files/studentfiles" + user_id + ".txt";
+    file.open(filename);
+    if(!file.is_open()){
+      return 1;
+    }
+    while(!file.eof()){
+      getline(file,filename);
+      //pardon me I am feeling to create a new variable so I am killing it all here
+      std::cout << filename << std::endl;
+    }
   }
 
   //fetch(read) methods (works as planned)
