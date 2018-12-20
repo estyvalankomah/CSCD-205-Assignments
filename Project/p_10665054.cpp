@@ -188,7 +188,10 @@ Database dbase;
             goto studPage;
           break;
           case 2:
-            cout << "Courses viewed!\n";
+            if(dbase.view(stud_no) == 1){
+              cout << "you have not registered for any courses yet" << endl;
+            }
+            system("pause");
             system("cls");
             goto studPage;
           break;
