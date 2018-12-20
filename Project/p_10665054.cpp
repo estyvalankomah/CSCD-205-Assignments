@@ -39,24 +39,25 @@ Database dbase;
             case 1:
                 cout << "Enter user number : ";
                 cin >> one.user_number;
+                stud_no = one.user_number;
                 cout << "Enter user pin : ";
                 cin >> one.user_pin;
                 cout << "Enter user first name : ";
                 cin >> one.fname;
                 cout << "Enter user last name : ";
                 cin >> one.lname;
+                stud_pin = one.fname + " " + one.lname ;
                 cout << "Enter user type (admin/staff/student) : ";
                 cin >> one.user_type;
               dbase.create(one);
               if(one.user_type == "student"){
-                course.user_number = one.user_number;
-                course.user_name = one.fname + " " + one.lname;
+                course.user_number = stud_no;
+                course.user_name = stud_pin;
                 cout << "Enter the academic year : ";
                 cin >> course.aca_year;
-                cout << "Enter the semester : ";
+                cout << "Enter the semester (first/second): ";
                 cin >> course.semester;
                 dbase.create(course);
-                break;
               }
               system("cls");
               goto adminPage;
@@ -135,7 +136,7 @@ Database dbase;
 
           break;
           case 2:
-            cout << "Enter course title : ";
+            cout << "Enter course code : ";
             cin >> admin_no;
             cout << "Enter assignment : ";
             cin >> admin_pin;

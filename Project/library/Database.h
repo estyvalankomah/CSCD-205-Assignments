@@ -59,17 +59,17 @@ public:
 
   void create(Course& course){
     //lines to save the course
-    course.file_name = "files/studentfiles" + course.user_number + ".txt";
+    course.file_name = "files/studentfiles/" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
-    std::cout << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
+    //std::cout << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
     file << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
     file.close();
   }
 
   void add(Course& course){
-    course.file_name = "files/studentfiles" + course.user_number + ".txt";
+    course.file_name = "files/studentfiles/" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
-    std::cout << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
+    //std::cout << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
     file << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
     file.close();
     std::cout << "Course created successfully .." << std::endl;
@@ -183,9 +183,8 @@ public:
 
   void give_assignment(std::string course_code,std::string assignment){
     file.open("files/assignment.txt",std::ios::app|std::ios::out);
-    while(!file.eof()){
-      file << course_code << " " << assignment << std::endl;
-    }
+    file << course_code << " " << assignment << std::endl;
+    file.close();
     std::cout << "Assignment uploaded!" << std::endl;
   }
 
