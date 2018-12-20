@@ -50,17 +50,6 @@ public:
     file.close();
     std::cout << "User created successfully " << std::endl;
   }
-
-  void add(Course& course){
-    //lines to save the course
-    course.file_name = "files/studentfiles/" + course.user_number + ".txt";
-    file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
-    //std::cout << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
-    file << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
-    file.close();
-  }
-
-
   //nice implementation here //good work done 
   void create(Course& course){
     course.file_name = "files/studentfiles/" + course.user_number + ".txt";
