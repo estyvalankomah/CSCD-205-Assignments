@@ -50,7 +50,7 @@ Database dbase;
                 cout << "Enter user type (admin/staff/student) : ";
                 cin >> one.user_type;
               dbase.create(one);
-              if(one.user_type == "student"){
+              /*if(one.user_type == "student"){
                 course.user_number = stud_no;
                 course.user_name = stud_pin;
                 cout << "Enter the academic year : ";
@@ -58,7 +58,7 @@ Database dbase;
                 cout << "Enter the semester (first/second): ";
                 cin >> course.semester;
                 dbase.create(course);
-              }
+              }*/
               system("cls");
               goto adminPage;
             break;
@@ -139,7 +139,7 @@ Database dbase;
             cout << "Enter course code : ";
             cin >> admin_no;
             cout << "Enter assignment : ";
-            cin >> admin_pin;
+            getline(cin,admin_pin);
             dbase.give_assignment(admin_no,admin_pin);
             system("cls");
             goto staffPage;

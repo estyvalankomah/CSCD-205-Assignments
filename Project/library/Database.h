@@ -51,7 +51,7 @@ public:
     std::cout << "User created successfully " << std::endl;
   }
 
-  void create(Course& course){
+  void add(Course& course){
     //lines to save the course
     course.file_name = "files/studentfiles/" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
@@ -61,7 +61,7 @@ public:
   }
 
   //nice implementation here //good work done 
-  void add(Course& course){
+  void create(Course& course){
     course.file_name = "files/studentfiles/" + course.user_number + ".txt";
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
     //std::cout << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
@@ -72,7 +72,7 @@ public:
 
   //okay so view courses works fine 
   int view(std::string user_id){
-    std::string filename = "files/studentfiles" + user_id + ".txt";
+    std::string filename = "files/studentfiles/" + user_id + ".txt";
     file.open(filename);
     if(!file.is_open()){
       return 1;
