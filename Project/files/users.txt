@@ -1,2 +1,6 @@
-010101 1234 Esther Love student
-010101 1234 Esther Love student
+010101 1234 Esther Love admin
+1066 1010 Abena Mmra admin
+1067 1011 Emmanuel Baidoo staff
+1068 1100 Ama Sarpongmaa staff
+
+1144 159 Sintim Missah student

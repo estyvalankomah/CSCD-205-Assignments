@@ -19,7 +19,7 @@ what we are going to have create, read, edit and delete functions
 */
 
 //this is your defined user struct
-struct User{
+struct User{ 
   std::string user_number;
   std::string user_pin;
   std::string fname;
@@ -29,16 +29,23 @@ struct User{
 
 struct Course{
   std::string user_number;
+  std::string user_name;
   std::string course_code;
   std::string course_title;
-  int Exam_mark = 0;
-  std::string grade = "NA";
+  std::string aca_year;
+  std::string semester;
+  std::string file_name;
+  int raw_score = 0;
+  int credit;
+  std::string grade = "N/A";
+  std::string gradept = "N/A";
 };
 
 class Database{
   std::fstream file;
   std::fstream temp_file;
   User user;
+  Course course;
 public:
 
   //create methods (works as planned)
@@ -52,12 +59,20 @@ public:
 
   void create(Course& course){
     //lines to save the course
-    file.open("courses.dat",std::ios::app|std::ios::out);
-    std::cout << course.user_number << " " << course.course_code << " " << course.course_title  << " " << course.Exam_mark << " " << course.grade << std::endl;
-    file << course.user_number << " " << course.course_code << " " << course.course_title  << " " << course.Exam_mark << " " << course.grade << std::endl;
+    course.file_name = "files/studentfiles" + course.user_number + ".txt";
+    file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
+    std::cout << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
+    file << course.user_number << " " << course.user_name << " " << course.aca_year << " " << course.semester << std::endl;
+    file.close();
+  }
+
+  void add(Course& course){
+    course.file_name = "files/studentfiles" + course.user_number + ".txt";
+    file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
+    std::cout << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
+    file << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
     file.close();
     std::cout << "Course created successfully .." << std::endl;
-    system("pause");
   }
 
   //fetch(read) methods (works as planned)
@@ -70,16 +85,18 @@ public:
         break;
       }
     }
+    file.close();
   }
 
   void fetch(std::string user_id,std::string course_code,Course& course){
     file.open("files/courses.txt",std::ios::in);
     while(!file.eof()){
-      file >> course.user_number >> course.course_code >> course.course_title >> course.Exam_mark >> course.grade;
+      file >> course.user_number >> course.course_code >> course.course_title >> course.raw_score >> course.grade;
       if(course.user_number == user_id && course.course_code == course_code){
         break;
       }
     }
+    file.close();
   }
 
   //update(edit) methods (not working at the moment) why are you cursing lol am I ? you said wtf that's cursing lol
@@ -102,12 +119,12 @@ public:
     file.close();
     temp_file.close();
     remove("files/users.txt");
-    int check = rename("files/temp.txt","users.txt");
-    std::cout << check << std::endl;
-    if(check){
+    rename("files/temp.txt","files/users.txt");
+    //std::cout << check << std::endl;
+    /*if(check){
       return true;
-    }
-    return false;
+    }*/
+    return true;
   }
 
   //delete(remove user) methods
@@ -128,12 +145,12 @@ public:
     file.close();
     temp_file.close();
     remove("files/users.txt");
-    int check = rename("files/temp.txt","files/users.txt");
-    std::cout << check << std::endl;
-    if(check){
+    rename("files/temp.txt","files/users.txt");
+    //std::cout << check << std::endl;
+    /*if(check){
       return true;
-    }
-    return false;
+    }*/
+    return true;
   }
 
   //user authentication method
@@ -153,20 +170,26 @@ public:
     file.open("files/courses.txt");
     temp_file.open("files/temp.txt",std::ios::app|std::ios::out);
     while(!file.eof()){
-      file >> course.user_number >> course.course_code >> course.Exam_mark >> course.grade;
+      file >> course.user_number >> course.course_code >> course.raw_score >> course.grade;
       if(course.user_number == user_id && course.course_code == course_code){
-        course.Exam_mark = score;
+        course.raw_score = score;
       }
-      temp_file << course.user_number << " " << course.course_code << " " << course.Exam_mark << " " << course.grade << std::endl;
+      temp_file << course.user_number << " " << course.course_code << " " << course.raw_score << " " << course.grade << std::endl;
     }
     remove("files/courses.txt");
     rename("files/temp.txt","courses.txt");
     std::cout << "Student has been graded successfully .." << std::endl;
   }
 
+  void give_assignment(std::string course_code,std::string assignment){
+    file.open("files/assignment.txt",std::ios::app|std::ios::out);
+    while(!file.eof()){
+      file << course_code << " " << assignment << std::endl;
+    }
+    std::cout << "Assignment uploaded!" << std::endl;
+  }
+
 };
-
-
 
 
 

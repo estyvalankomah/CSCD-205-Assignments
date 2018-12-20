@@ -38,16 +38,26 @@ Database dbase;
         switch(admin_opt){
             case 1:
                 cout << "Enter user number : ";
-                cin >> user.user_number;
+                cin >> one.user_number;
                 cout << "Enter user pin : ";
-                cin >> user.user_pin;
+                cin >> one.user_pin;
                 cout << "Enter user first name : ";
-                cin >> user.fname;
+                cin >> one.fname;
                 cout << "Enter user last name : ";
-                cin >> user.lname;
+                cin >> one.lname;
                 cout << "Enter user type (admin/staff/student) : ";
-                cin >> user.user_type;
-              dbase.create(user);
+                cin >> one.user_type;
+              dbase.create(one);
+              if(one.user_type == "student"){
+                course.user_number = one.user_number;
+                course.user_name = one.fname + " " + one.lname;
+                cout << "Enter the academic year : ";
+                cin >> course.aca_year;
+                cout << "Enter the semester : ";
+                cin >> course.semester;
+                dbase.create(course);
+                break;
+              }
               system("cls");
               goto adminPage;
             break;
@@ -55,7 +65,17 @@ Database dbase;
               cout << "Enter user number of person to edit: ";
               cin >> stud_no;
               dbase.fetch(stud_no,one);
-              if(dbase.update(one)){
+              cout << "Enter new user number : ";
+              cin >> user.user_number;
+              cout << "Enter new user pin : ";
+              cin >> user.user_pin;
+              cout << "Enter new user first name : ";
+              cin >> user.fname;
+              cout << "Enter new user last name : "; 
+              cin >> user.lname;
+              cout << "Enter new user type (admin/staff/student) : ";
+              cin >> user.user_type;
+              if(dbase.update(user)){
                 cout << "User edited successfully .. " << endl;
               }
               system("cls");
@@ -117,8 +137,9 @@ Database dbase;
           case 2:
             cout << "Enter course title : ";
             cin >> admin_no;
-
-            //function to give assignment
+            cout << "Enter assignment : ";
+            cin >> admin_pin;
+            dbase.give_assignment(admin_no,admin_pin);
             system("cls");
             goto staffPage;
 
@@ -152,13 +173,16 @@ Database dbase;
           cin >> stud_opt;
         switch(stud_opt){
           case 1:
+            course.user_number = stud_no;
             cout << "Enter course code : ";
             cin >> course.course_code;
             cout << "Enter course title : ";
             cin >> course.course_title;
-            course.user_number = stud_no;
+            cout << "Enter course credit hours : ";
+            cin >> course.credit;
+            
             //saving course to file
-            dbase.create(course);
+            dbase.add(course);
             system("cls");
             goto studPage;
           break;
