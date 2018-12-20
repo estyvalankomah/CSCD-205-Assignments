@@ -11,7 +11,7 @@ int main(int argc, char const *argv[]) {
 int choice,admin_opt,staff_opt,stud_opt;
 string admin_no,admin_pin,staff_no,staff_pin,stud_no,stud_pin;
 User one,user;
-Course course;
+Course course,edit_course;
 bool check;
 Database dbase;
 
@@ -50,15 +50,6 @@ Database dbase;
                 cout << "Enter user type (admin/staff/student) : ";
                 cin >> one.user_type;
               dbase.create(one);
-              /*if(one.user_type == "student"){
-                course.user_number = stud_no;
-                course.user_name = stud_pin;
-                cout << "Enter the academic year : ";
-                cin >> course.aca_year;
-                cout << "Enter the semester (first/second): ";
-                cin >> course.semester;
-                dbase.create(course);
-              }*/
               system("cls");
               goto adminPage;
             break;
@@ -122,15 +113,19 @@ Database dbase;
 
         switch(staff_opt){
           case 1:
-            system("cls");
+            system("cls");  
             cout << "Enter the ID number of the student to be graded : ";
-            cin >> stud_no;
+            cin >> edit_course.user_number;
             cout << "Enter the course code : ";
-            cin >> stud_pin;
+            cin >> edit_course.course_code;
+            cout << "Enter course title : ";
+            cin >> edit_course.course_title;
+            cout << "Enter course credit hours : ";
+            cin >> edit_course.credit;
             cout << "Enter the raw score : ";
-            cin >> stud_opt;
+            cin >> edit_course.raw_score;
 
-            dbase.grade_student(stud_opt,stud_pin,stud_no);
+            dbase.grade_student(edit_course);
             system("cls");
             goto staffPage;
 
@@ -183,7 +178,7 @@ Database dbase;
             cin >> course.credit;
 
             //saving course to file
-            dbase.add(course);
+            dbase.create(course);
             system("pause");
             system("cls");
             goto studPage;
@@ -197,17 +192,33 @@ Database dbase;
             goto studPage;
           break;
           case 3:
-            cout << "Courses edited!\n";
+            course.user_number = stud_no;
+            cout << "Enter course code of course to edit: ";
+            cin >> admin_no;
+            dbase.fetch(admin_no,course);
+            cout << "Enter new course code : ";
+            cin >> edit_course.course_code;
+            cout << "Enter new course title : ";
+            cin >> edit_course.course_title;
+            cout << "Enter new course credit hours : ";
+            cin >> course.credit;
+            if(dbase.update(edit_course)){
+              cout << "Course edited successfully .. " << endl;
+            }
             system("cls");
             goto studPage;
           break;
           case 4:
-            cout << "Courses deleted!\n";
+            cout << "Enter course code of course to delete: ";
+            cin >> admin_no;
+            if(dbase.delete_course(stud_no,admin_no)){
+              cout << "Course deleted successfully" << endl;
+            }
             system("cls");
             goto studPage;
           break;
           case 5:
-            cout << "Academic record\n";
+            dbase.print(stud_no);
             system("cls");
             goto studPage;
           break;
