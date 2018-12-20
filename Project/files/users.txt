@@ -2,4 +2,9 @@
 1066 1010 Abena Mmra admin
 1067 1011 Emmanuel Baidoo staff
 1068 1100 Ama Sarpongmaa staff
+<<<<<<< HEAD
 1245 12 Akua Gyetua student
+=======
+1144 159 Sintim Missah student
+0478 1234 Rich Lizard student
+>>>>>>> 4e44d32ab708dd8c8bb2a7aa1ad1ae62e4dbc9f1

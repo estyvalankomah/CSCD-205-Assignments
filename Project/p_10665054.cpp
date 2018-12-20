@@ -72,7 +72,7 @@ Database dbase;
               cin >> user.user_pin;
               cout << "Enter new user first name : ";
               cin >> user.fname;
-              cout << "Enter new user last name : "; 
+              cout << "Enter new user last name : ";
               cin >> user.lname;
               cout << "Enter new user type (admin/staff/student) : ";
               cin >> user.user_type;
@@ -181,9 +181,10 @@ Database dbase;
             cin >> course.course_title;
             cout << "Enter course credit hours : ";
             cin >> course.credit;
-            
+
             //saving course to file
             dbase.add(course);
+            system("pause");
             system("cls");
             goto studPage;
           break;

@@ -13,7 +13,7 @@ what we are going to have create, read, edit and delete functions
 */
 
 //this is your defined user struct
-struct User{ 
+struct User{
   std::string user_number;
   std::string user_pin;
   std::string fname;
@@ -60,9 +60,15 @@ public:
     file.close();
   }
 
+<<<<<<< HEAD
   //nice implementation here //good work done 
   void create(Course& course){
     course.file_name = "files/studentfiles/" + course.user_number + ".txt";
+=======
+  //nice implementation here //good work done
+  void add(Course& course){
+    course.file_name = "files/studentfiles" + course.user_number + ".txt";
+>>>>>>> 4e44d32ab708dd8c8bb2a7aa1ad1ae62e4dbc9f1
     file.open(course.file_name.c_str(),std::ios::app|std::ios::out);
     //std::cout << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
     file << course.course_code << " " << course.course_title  << " " << course.credit << " " << course.grade << " " << course.gradept << std::endl;
@@ -70,16 +76,21 @@ public:
     std::cout << "Course created successfully .." << std::endl;
   }
 
-  //okay so view courses works fine 
+  //okay so view courses works fine
   int view(std::string user_id){
+<<<<<<< HEAD
     std::string filename = "files/studentfiles/" + user_id + ".txt";
     file.open(filename);
+=======
+    std::string filename = "files/studentfiles" + user_id + ".txt";
+    file.open(filename.c_str(),std::ios::in);
+>>>>>>> 4e44d32ab708dd8c8bb2a7aa1ad1ae62e4dbc9f1
     if(!file.is_open()){
       return 1;
     }
     while(!file.eof()){
       getline(file,filename);
-      //pardon me I am feeling to create a new variable so I am killing it all here
+      //pardon me I am feeling lazy to create a new variable so I am killing it all here
       std::cout << filename << std::endl;
     }
   }
